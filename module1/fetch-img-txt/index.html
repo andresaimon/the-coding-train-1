@@ -1,0 +1,83 @@
+                <!--             Using the fetch() 
+                                     structure:
+1 - call fetch("any path") and generate an asynchronous events with Promises 
+2 - response a body
+3 - complete data stream and convert in a text, json ou blob(image))
+4 - make an <img>                                            -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conding Train: Data/APIs - 1</title>
+</head>
+<body>
+
+<h1>Fetch a image</h1> 
+<p id="image">
+<!-- first step: add a img tag and a Javascrip insctruction in the body, for use the fetch()-->
+<img src="" id="id-picture" width="480">
+<script>
+    console.log('About to fetch the img');
+
+    catchPicture()
+    .then(response => {
+        console.log('Hello image')
+    })
+    .catch(error => {
+        console.log('Error!')
+        console.error(error)
+    })
+
+    async function catchPicture() {
+        const response = await fetch('id-picture.png')
+        const blob = await response.blob()
+        document.getElementById('id-picture').src = URL.createObjectURL(blob);
+    }
+
+    /* 
+    This was replaced by async/await expression
+    
+    fetch('id-picture.png')
+    .then(response => {
+        console.log(response);
+        return response.blob();
+    })
+    .then(blob => {
+        console.log(blob);
+    })
+    .catch(error => {
+        console.log('error!')
+        console.error(error)
+    })
+    */
+
+</script>
+</p>
+
+<h1>Fetch a text</h1>
+<p id="text"></p>
+<script>
+    console.log('About to fetch a text')
+
+    catchText()
+    .then(text => {
+    document.getElementById('text').innerText = text
+    console.log('Hello text')
+    })
+    .catch(error => {
+        console.log('error')
+        console.error(error)
+    })
+
+    async function catchText() {
+        const response = await fetch('text.txt')
+        return await response.text()
+    }
+
+</script>
+</p>
+</body>
+</html>
